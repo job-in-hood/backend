@@ -5,21 +5,29 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Validator;
 
 class RegisterController extends Controller
 {
     public function register(Request $request)
     {
-        $request->validate([
-            'name' => ['required'],
-            'email' => ['required', 'email', 'unique:users'],
-            'password' => ['required', 'min:8', 'confirmed']
-        ]);
+        $inputs = $request->json()->all();
+        $validated = Validator::make($inputs,
+            [
+                'name' => ['required'],
+                'email' => ['required', 'email', 'unique:users'],
+                'password' => ['required', 'min:8', 'confirmed']
+            ])->validate();
 
-        User::create([
-            'name' => $request->name,
-            'email' => $request->email,
-            'password' => Hash::make($request->password)
-        ]);
+
+        // Hash the password
+        $validated["password"] = Hash::make($validated["password"]);
+
+        $user = User::create(
+            $validated
+        );
+
+        return $user;
     }
 }
