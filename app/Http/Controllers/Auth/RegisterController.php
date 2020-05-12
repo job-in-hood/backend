@@ -13,11 +13,12 @@ class RegisterController extends Controller
     public function register(Request $request)
     {
         $inputs = $request->json()->all();
+
         $validated = Validator::make($inputs,
             [
                 'name' => ['required'],
-                'email' => ['required', 'email', 'unique:users'],
-                'password' => ['required', 'min:8', 'confirmed']
+                'password' => ['required', 'min:8', 'confirmed'],
+                'email' => ['required', 'email', 'unique:users']
             ])->validate();
 
 
