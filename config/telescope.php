@@ -29,7 +29,8 @@ return [
     |
     */
 
-    'path' => env('TELESCOPE_PATH', 'telescope'),
+//    'path' => env('TELESCOPE_PATH', 'telescope'),
+    'path' => env('TELESCOPE_PATH', 'tls'),
 
     /*
     |--------------------------------------------------------------------------

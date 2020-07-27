@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -15,7 +16,20 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('welcome');
+})->name('home');
+
+Route::prefix('email')->group(function() {
+    Route::get('login', 'Auth\LoginController@showLoginForm')->name('login');
+    Route::post('login', 'Auth\LoginController@login');
 });
 
-//Auth::routes();
+Auth::routes([
+    'login' => false,
+    'logout' => false,
+    'register' => false,
+    'verify' => true,
+]);
+
+
+
 //Route::get('/home', 'HomeController@index')->name('home');
