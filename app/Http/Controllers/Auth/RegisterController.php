@@ -27,7 +27,6 @@ use Illuminate\Support\Facades\Validator;
  */
 class RegisterController extends Controller
 {
-
     /**
      * @OA\Post(
      *     path="/api/user/register",

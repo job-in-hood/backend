@@ -6,6 +6,45 @@
         "version": ""
     },
     "paths": {
+        "/api/user/login": {
+            "post": {
+                "summary": "Login the user",
+                "operationId": "App\\Http\\Controllers\\Auth\\LoginController::login",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "email": {
+                                        "type": "string"
+                                    },
+                                    "password": {
+                                        "type": "string"
+                                    },
+                                    "device_name": {
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object",
+                                "example": {
+                                    "email": "john@doe.com",
+                                    "password": "Password",
+                                    "device_name": "DeviceX"
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Token Issued"
+                    },
+                    "422": {
+                        "description": "Unprocessable Entity"
+                    }
+                }
+            }
+        },
         "/api/user/register": {
             "post": {
                 "summary": "Adds a new user",
