@@ -18,10 +18,10 @@ Route::get('/', function () {
     return view('welcome');
 })->name('home');
 
-Route::prefix('email')->group(function() {
-    Route::get('login', 'Auth\LoginController@showLoginForm')->name('login');
-    Route::post('login', 'Auth\LoginController@login');
-});
+//Route::prefix('email')->group(function() {
+//    Route::get('login', 'Auth\LoginController@showLoginForm')->name('login');
+//    Route::post('login', 'Auth\LoginController@login');
+//});
 
 Auth::routes([
     'login' => false,

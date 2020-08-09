@@ -78,7 +78,8 @@ class LoginController extends Controller
      * )
      */
 
-    protected function login(Request $request)
+
+    protected function apiLogin(Request $request)
     {
         $inputs = $request->json()->all();
 
@@ -91,17 +92,71 @@ class LoginController extends Controller
 
         $user = User::where('email', $request->email)->first();
 
-        if (! $user || ! Hash::check($request->password, $user->password)) {
+        if (!$user || !Hash::check($request->password, $user->password)) {
             throw ValidationException::withMessages([
                 'email' => ['The provided credentials are incorrect.'],
             ]);
         }
-        elseif (! $user->hasVerifiedEmail()) {
-            throw ValidationException::withMessages([
-                'email' => ['Email verification error'],
-            ]);
+
+        $result = [
+            'token' => $user->createToken($request->device_name)->plainTextToken,
+            'name' => $user->name
+        ];
+
+        if (!$user->hasVerifiedEmail()) {
+                $result['errors'] = [
+                    'email' => ['Email verification error']
+            ];
         }
 
-        return $user->createToken($request->device_name)->plainTextToken;
+        return response()->json($result);
+
+    }
+
+
+    /**
+     * @OA\Post(
+     *     path="/api/user/logout",
+     *     summary="Logout the user",
+     *     description="Use with bearer token",
+     *     @OA\RequestBody(
+     *         @OA\MediaType(
+     *             mediaType="application/json",
+     *             @OA\Schema(
+     *                 @OA\Property(
+     *                     property="device_name",
+     *                     type="string"
+     *                 ),
+     *                 example={"device_name": "DeviceX"}
+     *             )
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=200,
+     *         description="Token Revoked"
+     *     ),
+     *     @OA\Response(
+     *         response=422,
+     *         description="Unprocessable Entity"
+     *     )
+     * )
+     */
+
+    protected function apiLogout(Request $request)
+    {
+
+        $inputs = $request->json()->all();
+
+        $validated = Validator::make($inputs,
+            [
+                'device_name' => 'required',
+            ])->validate();
+
+        $user = $request->user();
+
+        $user->tokens()->where('name', $request->device_name)->delete();
+
+        return response()->json([
+            "message" => "Success"], 200);
     }
 }

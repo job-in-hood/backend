@@ -9,7 +9,7 @@
         "/api/user/login": {
             "post": {
                 "summary": "Login the user",
-                "operationId": "App\\Http\\Controllers\\Auth\\LoginController::login",
+                "operationId": "App\\Http\\Controllers\\Auth\\LoginController::apiLogin",
                 "requestBody": {
                     "content": {
                         "application/json": {
@@ -38,6 +38,37 @@
                 "responses": {
                     "200": {
                         "description": "Token Issued"
+                    },
+                    "422": {
+                        "description": "Unprocessable Entity"
+                    }
+                }
+            }
+        },
+        "/api/user/logout": {
+            "post": {
+                "summary": "Logout the user",
+                "operationId": "App\\Http\\Controllers\\Auth\\LoginController::apiLogout",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "device_name": {
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object",
+                                "example": {
+                                    "device_name": "DeviceX"
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Token Revoked"
                     },
                     "422": {
                         "description": "Unprocessable Entity"
