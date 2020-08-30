@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\ValidationException;
 use Illuminate\Support\Facades\Validator;
+use Laravel\Telescope\Watchers\EventWatcher;
 
 class LoginController extends Controller
 {
@@ -158,5 +159,33 @@ class LoginController extends Controller
 
         return response()->json([
             "message" => "Success"], 200);
+    }
+
+
+    /**
+     * @OA\Get(
+     *     path="/api/user",
+     *     summary="Get current user basic info",
+     *     description="Use with bearer token",
+     *     @OA\RequestBody(
+     *         @OA\MediaType(
+     *             mediaType="application/json",
+     *             @OA\Schema(
+     *             )
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=200,
+     *         description="User details returned"
+     *     ),
+     *     @OA\Response(
+     *         response=422,
+     *         description="Unprocessable Entity"
+     *     )
+     * )
+     */
+
+    protected function apiGetCurrentUser(Request $request) {
+        return $request->user();
     }
 }

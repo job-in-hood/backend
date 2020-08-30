@@ -19,9 +19,13 @@ Route::post('user/register', 'Auth\RegisterController@register')->name('api.auth
 Route::post('user/login', 'Auth\LoginController@apiLogin')->name('api.auth.login');
 
 Route::middleware('auth:sanctum')->group(function () {
-    Route::post('user/logout', 'Auth\LoginController@apiLogout')->name('api.auth.logout');
+    Route::prefix('user')->group(function () {
+        Route::post('logout', 'Auth\LoginController@apiLogout')->name('api.auth.logout');
+        Route::get('/', 'Auth\LoginController@apiGetCurrentUser')->name('api.auth.user');
+    });
 
-    Route::get('/user', function (Request $request) {
-        return $request->user();
+    Route::prefix('company')->group(function () {
+//        Route::post('/', 'Auth\LoginController@apiLogout')->name('api.auth.logout');
+//        Route::post('/', 'Auth\LoginController@apiGetCurrentUser')->name('api.auth.user');
     });
 });
