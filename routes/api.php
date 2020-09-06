@@ -25,7 +25,7 @@ Route::middleware('auth:sanctum')->group(function () {
     });
 
     Route::prefix('company')->group(function () {
-//        Route::post('/', 'Auth\LoginController@apiLogout')->name('api.auth.logout');
+        Route::put('/', 'CompanyController@store')->name('api.company.store');
 //        Route::post('/', 'Auth\LoginController@apiGetCurrentUser')->name('api.auth.user');
     });
 });
