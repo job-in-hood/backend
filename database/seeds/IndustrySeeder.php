@@ -1,5 +1,7 @@
 <?php
+namespace Database\Seeders;
 
+use App\Models\Industry;
 use Illuminate\Database\Seeder;
 
 class IndustrySeeder extends Seeder
@@ -11,11 +13,11 @@ class IndustrySeeder extends Seeder
      */
     public function run()
     {
-        $count = DB::table('industries')->count();
+        $count = Industry::all()->count();
 
         if (! $count)
-        DB::table('industries')->insert([
-            'name' => 'Other'
+        Industry::create([
+           'name' => 'Other'
         ]);
     }
 }
