@@ -13,6 +13,10 @@ class Company extends Model
             'name','description', 'logo', 'email','website','industry_id'
         ];
 
+    protected $hidden = [
+      'created_at', 'updated_at', 'deleted_at'
+    ];
+
     public function industry() {
         return $this->belongsTo(Industry::class);
     }

@@ -67,7 +67,10 @@ class CompanyController extends Controller
      *     @OA\Response(
      *         response=422,
      *         description="Unprocessable Entity"
-     *     )
+     *     ),
+     *     security={
+     *       {"api_key": {}}
+     *     }
      * )
      */
     public function store(Request $request)
@@ -90,14 +93,41 @@ class CompanyController extends Controller
     }
 
     /**
-     * Display the specified resource.
-     *
-     * @param  int $id
-     * @return \Illuminate\Http\Response
+     * @OA\Get(
+     *     path="/api/company/{companyId}",
+     *     summary="Show company details by ID",
+     *     @OA\Parameter(
+     *         description="ID of company to return",
+     *         in="path",
+     *         name="companyId",
+     *         required=true,
+     *         @OA\Schema(
+     *           type="integer",
+     *           format="int64"
+     *         )
+     *     ),
+     *     @OA\RequestBody(
+     *         @OA\MediaType(
+     *             mediaType="application/json",
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=200,
+     *         description="Successful"
+     *     ),
+     *     @OA\Response(
+     *         response=404,
+     *         description="Item not found"
+     *     ),
+     *     @OA\Response(
+     *         response=422,
+     *         description="Unprocessable Entity"
+     *     )
+     * )
      */
-    public function show($id)
+    public function show(Company $company)
     {
-        //
+        return $company;
     }
 
     /**

@@ -14,11 +14,16 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-
 Route::post('user/register', 'Auth\RegisterController@register')->name('api.auth.register');
 Route::post('user/login', 'Auth\LoginController@apiLogin')->name('api.auth.login');
 
+//Authenticated
+Route::prefix('company')->group(function () {
+    Route::get('{company}', 'CompanyController@show')->name('api.company.show');
+});
+
 Route::middleware('auth:sanctum')->group(function () {
+    //Authenticated
     Route::prefix('user')->group(function () {
         Route::post('logout', 'Auth\LoginController@apiLogout')->name('api.auth.logout');
         Route::get('/', 'Auth\LoginController@apiGetCurrentUser')->name('api.auth.user');
