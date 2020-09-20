@@ -14,7 +14,7 @@ class CompanyObserver
      */
     public function created(Company $company)
     {
-        //
+        $company->notify(new CompanyCreated($company));
     }
 
     /**

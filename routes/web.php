@@ -18,6 +18,10 @@ Route::get('/', function () {
     return view('welcome');
 })->name('home');
 
+Route::get('/slack', function () {
+    return "Hello";
+});
+
 //Route::prefix('email')->group(function() {
 //    Route::get('login', 'Auth\LoginController@showLoginForm')->name('login');
 //    Route::post('login', 'Auth\LoginController@login');
