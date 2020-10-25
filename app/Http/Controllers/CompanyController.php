@@ -87,6 +87,7 @@ class CompanyController extends Controller
                 'email' => 'required', 'email'
             ])->validate();
 
+
         // Create Company record
         $company = Company::create($validated);
         return $company;

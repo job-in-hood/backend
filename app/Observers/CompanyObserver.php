@@ -3,6 +3,8 @@
 namespace App\Observers;
 
 use App\Models\Company;
+use App\Notifications\CompanyCreated;
+use Illuminate\Support\Facades\Notification;
 
 class CompanyObserver
 {

@@ -24,6 +24,6 @@ class Company extends Model
 
     public function routeNotificationForSlack($notification)
     {
-        return 'https://hooks.slack.com/services/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';
+        return env('SLACK_NOTIFICATION_WEBHOOK');
     }
 }
