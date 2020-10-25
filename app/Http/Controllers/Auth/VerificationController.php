@@ -63,7 +63,7 @@ class VerificationController extends Controller
 
     /**
      * @OA\Get(
-     *     path="/api/user/verify/{id}/{hash}",
+     *     path="/api/email/verify/{id}/{hash}",
      *     summary="Verify user email address",
      *     description="",
      *     @OA\RequestBody(

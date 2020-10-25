@@ -23,16 +23,16 @@ Route::get('/', function () {
 //    Route::post('login', 'Auth\LoginController@login');
 //});
 
-Auth::routes([
-    'login' => false,
-    'logout' => false,
-    'register' => false,
-    'verify' => false,
-]);
+//Auth::routes([
+//    'login' => false,
+//    'logout' => false,
+//    'register' => false,
+//    'verify' => false,
+//]);
 
 
 //Route::get('/home', 'HomeController@index')->name('home');
 
-Route::get('test', function () {
-//
-});
+Route::get('reset-password', function () {
+})->middleware(['guest'])->name('password.reset');
+

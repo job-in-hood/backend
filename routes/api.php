@@ -16,9 +16,17 @@ use Illuminate\Support\Facades\Route;
 
 Route::post('user/register', 'Auth\RegisterController@register')->name('api.auth.register');
 Route::post('user/login', 'Auth\LoginController@apiLogin')->name('api.auth.login');
-Route::get('user/verify/{id}/{hash}', 'Auth\VerificationController@apiEmailVerification')->name('verification.verify');
 
-//Authenticated
+// Password Reset
+Route::post('forgot-password', 'Auth\ForgotPasswordController@resetPassword')
+    ->middleware(['guest'])->name('api.password.email');
+Route::post('reset-password', 'Auth\ForgotPasswordController@updatePassword')
+    ->middleware(['guest'])->name('api.password.update');
+
+// Email Verification
+Route::get('email/verify/{id}/{hash}', 'Auth\VerificationController@apiEmailVerification')->name('api.verification.verify');
+
+// Not Authenticated
 Route::prefix('company')->group(function () {
     Route::get('{company}', 'CompanyController@show')->name('api.company.show');
 });
