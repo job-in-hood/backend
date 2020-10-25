@@ -16,6 +16,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::post('user/register', 'Auth\RegisterController@register')->name('api.auth.register');
 Route::post('user/login', 'Auth\LoginController@apiLogin')->name('api.auth.login');
+Route::get('user/verify/{id}/{hash}', 'Auth\VerificationController@apiEmailVerification')->name('verification.verify');
 
 //Authenticated
 Route::prefix('company')->group(function () {

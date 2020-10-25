@@ -5,8 +5,11 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use App\Providers\RouteServiceProvider;
+use http\Exception\InvalidArgumentException;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Auth\Events\Verified;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use Illuminate\Foundation\Auth\VerifiesEmails;
 use Illuminate\Http\Request;
 
@@ -46,15 +49,55 @@ class VerificationController extends Controller
 
     public function verify(Request $request)
     {
-        $user = User::find($request->route('id'));
+        $user = User::findOrFail($request->route('id'));
 
-        if (!hash_equals((string) $request->route('hash'), sha1($user->getEmailForVerification()))) {
+        if (!hash_equals((string)$request->route('hash'), sha1($user->getEmailForVerification()))) {
             throw new AuthorizationException;
         }
 
         if ($user->markEmailAsVerified())
             event(new Verified($user));
 
-        return redirect($this->redirectPath())->with('verified', true);
+        return $user;
+    }
+
+    /**
+     * @OA\Get(
+     *     path="/api/user/verify/{id}/{hash}",
+     *     summary="Verify user email address",
+     *     description="",
+     *     @OA\RequestBody(
+     *         @OA\MediaType(
+     *             mediaType="application/json",
+     *             @OA\Schema(
+     *             )
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=200,
+     *         description="User details returned"
+     *     ),
+     *     @OA\Response(
+     *         response=403,
+     *         description="Unauthorized"
+     *     )
+     * )
+     */
+    protected function apiEmailVerification(Request $request)
+    {
+        try {
+            $user = User::findOrFail($request->route('id'));
+        } catch (ModelNotFoundException $ex) {
+            throw new AuthorizationException;
+        }
+
+        if (!hash_equals((string)$request->route('hash'), sha1($user->getEmailForVerification())) || !is_null($user->email_verified_at)) {
+            throw new AuthorizationException();
+        }
+
+        if ($user->markEmailAsVerified())
+            event(new Verified($user));
+
+        return $user;
     }
 }
