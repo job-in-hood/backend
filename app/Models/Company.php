@@ -22,6 +22,16 @@ class Company extends Model
         return $this->belongsTo(Industry::class);
     }
 
+    public function representations() {
+        return $this->hasMany(Representation::class);
+    }
+
+    public function users() {
+        return $this->belongsToMany(User::class, 'representations')
+            ->using(Representation::class)
+            ->withTimestamps();
+    }
+
     public function routeNotificationForSlack($notification)
     {
         return env('SLACK_NOTIFICATION_WEBHOOK');

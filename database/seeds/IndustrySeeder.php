@@ -13,9 +13,7 @@ class IndustrySeeder extends Seeder
      */
     public function run()
     {
-        $count = Industry::all()->count();
-
-        if (! $count)
+        if (! Industry::all()->count())
         Industry::create([
            'name' => 'Other'
         ]);

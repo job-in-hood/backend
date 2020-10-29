@@ -38,4 +38,14 @@ class User extends Authenticatable implements MustVerifyEmail, CanResetPassword
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function representations() {
+        return $this->hasMany(Representation::class);
+    }
+
+    public function companies() {
+        return $this->belongsToMany(Company::class, 'representations')
+            ->using(Representation::class)
+            ->withTimestamps();
+    }
 }
