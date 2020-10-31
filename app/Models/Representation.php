@@ -5,10 +5,21 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\Pivot;
+use Spatie\Permission\Traits\HasRoles;
 
 class Representation extends Pivot
 {
     use HasFactory;
+    use HasRoles;
+
+    /**
+     * The table associated with the model.
+     *
+     * @var string
+     */
+    protected $table = 'representations';
+
+    protected $guard_name = 'api';
 
     /**
      * Indicates if the IDs are auto-incrementing.

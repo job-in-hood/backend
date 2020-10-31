@@ -10,7 +10,7 @@ use Illuminate\Notifications\Messages\SlackMessage;
 use Illuminate\Notifications\Notification;
 use Illuminate\Support\Facades\Auth;
 
-class CompanyCreated extends Notification
+class NewCompanyNotification extends Notification
 {
     use Queueable;
 

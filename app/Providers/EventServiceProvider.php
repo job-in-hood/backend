@@ -3,7 +3,9 @@
 namespace App\Providers;
 
 use App\Events\Auth\UserRegistered;
+use App\Events\CompanyCreated;
 use App\Listeners\Auth\SendUserVerificationEmail;
+use App\Listeners\SendNewCompanyNotification;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
@@ -19,6 +21,10 @@ class EventServiceProvider extends ServiceProvider
     protected $listen = [
         Registered::class => [
             SendEmailVerificationNotification::class,
+        ],
+
+        CompanyCreated::class => [
+            SendNewCompanyNotification::class
         ]
     ];
 

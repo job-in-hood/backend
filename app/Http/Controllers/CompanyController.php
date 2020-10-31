@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\CompanyCreated;
 use App\Models\Company;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 
 class CompanyController extends Controller
@@ -90,6 +92,15 @@ class CompanyController extends Controller
 
         // Create Company record
         $company = Company::create($validated);
+
+        // Build representation link
+        $company->users()->attach(Auth::user());
+
+        // Assign the admin role to the user for company
+        $company->representations()->first()->assignRole('Company Administrator');
+
+        event(new CompanyCreated($company));
+
         return $company;
     }
 

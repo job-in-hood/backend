@@ -2,8 +2,6 @@
 
 namespace App\Providers;
 
-use App\Models\Company;
-use App\Observers\CompanyObserver;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -25,6 +23,6 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        Company::observe(CompanyObserver::class);
+        //Company::observe(CompanyObserver::class);
     }
 }
