@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Notifications\ResetPasswordNotification;
 use Illuminate\Contracts\Auth\CanResetPassword;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -27,7 +28,7 @@ class User extends Authenticatable implements MustVerifyEmail, CanResetPassword
      * @var array
      */
     protected $hidden = [
-        'password', 'remember_token',
+        'password', 'remember_token', 'created_at', 'updated_at', 'email_verified_at'
     ];
 
     /**
@@ -39,13 +40,42 @@ class User extends Authenticatable implements MustVerifyEmail, CanResetPassword
         'email_verified_at' => 'datetime',
     ];
 
-    public function representations() {
+    protected $appends = ['companyRoles'];
+
+    public function representations()
+    {
         return $this->hasMany(Representation::class);
     }
 
-    public function companies() {
+    public function companies()
+    {
         return $this->belongsToMany(Company::class, 'representations')
             ->using(Representation::class)
             ->withTimestamps();
+    }
+
+    public function getCompanyRolesAttribute()
+    {
+        return $this->representations()
+            ->with('roles')
+            ->with('company')
+            ->get()
+            ->map(function ($item) {
+                return [
+                    "company" => $item->company,
+                    "role" => $item->roles->pluck("name")
+                ];
+            });
+    }
+
+    /**
+     * Send the password reset notification.
+     *
+     * @param  string  $token
+     * @return void
+     */
+    public function sendPasswordResetNotification($token)
+    {
+        $this->notify(new ResetPasswordNotification($token));
     }
 }
