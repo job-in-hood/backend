@@ -40,8 +40,6 @@ class User extends Authenticatable implements MustVerifyEmail, CanResetPassword
         'email_verified_at' => 'datetime',
     ];
 
-    protected $appends = ['companyRoles'];
-
     public function representations()
     {
         return $this->hasMany(Representation::class);
@@ -62,7 +60,7 @@ class User extends Authenticatable implements MustVerifyEmail, CanResetPassword
         return $this->representations()->where('company_id', $company->id)->first();
     }
 
-    public function getCompanyRolesAttribute()
+    public function companyRoles()
     {
         return $this->representations()
             ->with('roles')

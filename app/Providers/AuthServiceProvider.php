@@ -3,7 +3,6 @@
 namespace App\Providers;
 
 use App\Models\Company;
-use App\Models\User;
 use App\Policies\CompanyPolicy;
 use Illuminate\Auth\Notifications\VerifyEmail;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
@@ -23,7 +22,7 @@ class AuthServiceProvider extends ServiceProvider
      * @var array
      */
     protected $policies = [
-         Company::class => CompanyPolicy::class,
+         Company::class => CompanyPolicy::class
     ];
 
     /**

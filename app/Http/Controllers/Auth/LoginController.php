@@ -187,6 +187,10 @@ class LoginController extends Controller
      */
 
     protected function apiGetCurrentUser(Request $request) {
-        return $request->user();
+        $user = $request->user();
+
+        $user->companyRoles = $user->companyRoles();
+
+        return $user;
     }
 }

@@ -33,14 +33,14 @@ Route::prefix('company')->group(function () {
 Route::middleware('auth:sanctum')->group(function () {
     //Authenticated
     Route::prefix('user')->group(function () {
-        Route::post('logout', 'Auth\LoginController@apiLogout')->name('api.auth.logout');
         Route::get('/', 'Auth\LoginController@apiGetCurrentUser')->name('api.auth.user');
+        Route::post('logout', 'Auth\LoginController@apiLogout')->name('api.auth.logout');
+        Route::patch('profile', 'UserController@update')->name('api.user.update');
     });
 
     Route::prefix('company')->group(function () {
         Route::put('/', 'CompanyController@store')->name('api.company.store');
         Route::patch('{company}', 'CompanyController@update')->name('api.company.update')->middleware('can:update,company');
         Route::delete('{company}', 'CompanyController@destroy')->name('api.company.destroy')->middleware('can:delete,company');
-//        Route::post('/', 'Auth\LoginController@apiGetCurrentUser')->name('api.auth.user');
     });
 });
