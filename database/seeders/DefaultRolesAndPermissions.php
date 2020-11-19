@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
+use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Models\Role;
 
 class DefaultRolesAndPermissions extends Seeder
@@ -14,8 +15,18 @@ class DefaultRolesAndPermissions extends Seeder
      */
     public function run()
     {
-        $role = Role::create([
+        $role = Role::firstOrCreate([
             'name' => 'Company Administrator'
         ]);
+
+        $companyPermissions = ['company-update', 'company-delete'];
+
+        foreach ($companyPermissions as $companyPermission) {
+            $permission = Permission::firstOrCreate([
+                'name' => $companyPermission
+            ]);
+
+            $role->givePermissionTo($permission);
+        }
     }
 }

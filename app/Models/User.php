@@ -54,6 +54,14 @@ class User extends Authenticatable implements MustVerifyEmail, CanResetPassword
             ->withTimestamps();
     }
 
+    /**
+     * @param Company $company
+     * @return Representation
+     */
+    public function forCompany(Company $company) {
+        return $this->representations()->where('company_id', $company->id)->first();
+    }
+
     public function getCompanyRolesAttribute()
     {
         return $this->representations()

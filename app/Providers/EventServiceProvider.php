@@ -2,14 +2,13 @@
 
 namespace App\Providers;
 
-use App\Events\Auth\UserRegistered;
 use App\Events\CompanyCreated;
-use App\Listeners\Auth\SendUserVerificationEmail;
+use App\Events\CompanyDeleted;
+use App\Listeners\SendDeletedCompanyNotification;
 use App\Listeners\SendNewCompanyNotification;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
-use Illuminate\Support\Facades\Event;
 
 class EventServiceProvider extends ServiceProvider
 {
@@ -25,6 +24,9 @@ class EventServiceProvider extends ServiceProvider
 
         CompanyCreated::class => [
             SendNewCompanyNotification::class
+        ],
+        CompanyDeleted::class => [
+            SendDeletedCompanyNotification::class
         ]
     ];
 

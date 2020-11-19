@@ -1,6 +1,5 @@
 <?php
 
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -40,6 +39,8 @@ Route::middleware('auth:sanctum')->group(function () {
 
     Route::prefix('company')->group(function () {
         Route::put('/', 'CompanyController@store')->name('api.company.store');
+        Route::patch('{company}', 'CompanyController@update')->name('api.company.update')->middleware('can:update,company');
+        Route::delete('{company}', 'CompanyController@destroy')->name('api.company.destroy')->middleware('can:delete,company');
 //        Route::post('/', 'Auth\LoginController@apiGetCurrentUser')->name('api.auth.user');
     });
 });
