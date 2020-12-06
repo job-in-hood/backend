@@ -32,7 +32,7 @@ Route::prefix('company')->group(function () {
 
 // Lookups
 Route::prefix('lookup')->group(function () {
-    Route::get('{location}', 'LocationLookupController')->name('api.lookup.location');
+    Route::post('{location}', 'LocationLookupController')->name('api.lookup.location');
 });
 
 Route::middleware('auth:sanctum')->group(function () {
