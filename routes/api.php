@@ -30,6 +30,11 @@ Route::prefix('company')->group(function () {
     Route::get('{company}', 'CompanyController@show')->name('api.company.show');
 });
 
+// Lookups
+Route::prefix('lookup')->group(function () {
+    Route::get('{location}', 'LocationLookupController')->name('api.lookup.location');
+});
+
 Route::middleware('auth:sanctum')->group(function () {
     //Authenticated
     Route::prefix('user')->group(function () {
