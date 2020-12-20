@@ -49,6 +49,7 @@ class LoginController extends Controller
      * @OA\Post(
      *     path="/api/user/login",
      *     summary="Login the user",
+     *     tags={"Authentication"},
      *     @OA\RequestBody(
      *         @OA\MediaType(
      *             mediaType="application/json",
@@ -121,6 +122,7 @@ class LoginController extends Controller
      *     path="/api/user/logout",
      *     summary="Logout the user",
      *     description="Use with bearer token",
+     *     tags={"Authentication"},
      *     @OA\RequestBody(
      *         @OA\MediaType(
      *             mediaType="application/json",
@@ -162,35 +164,4 @@ class LoginController extends Controller
             "message" => "Success"], 200);
     }
 
-
-    /**
-     * @OA\Get(
-     *     path="/api/user",
-     *     summary="Get current user basic info",
-     *     description="Use with bearer token",
-     *     @OA\RequestBody(
-     *         @OA\MediaType(
-     *             mediaType="application/json",
-     *             @OA\Schema(
-     *             )
-     *         )
-     *     ),
-     *     @OA\Response(
-     *         response=200,
-     *         description="User details returned"
-     *     ),
-     *     @OA\Response(
-     *         response=422,
-     *         description="Unprocessable Entity"
-     *     )
-     * )
-     */
-
-    protected function apiGetCurrentUser(Request $request) {
-        $user = $request->user();
-
-        $user->companyRoles = $user->companyRoles();
-
-        return $user;
-    }
 }

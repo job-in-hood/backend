@@ -15,6 +15,7 @@ class CompanyController extends Controller
      * @OA\Post(
      *     path="/api/company",
      *     summary="Create a new company",
+     *     tags={"Company"},
      *     @OA\RequestBody(
      *         @OA\MediaType(
      *             mediaType="application/json",
@@ -89,6 +90,7 @@ class CompanyController extends Controller
      * @OA\Get(
      *     path="/api/company/{id}",
      *     summary="Show company details by ID",
+     *     tags={"Company"},
      *     @OA\Parameter(
      *         description="ID of company to return",
      *         in="path",
@@ -128,6 +130,7 @@ class CompanyController extends Controller
      * @OA\Patch(
      *     path="/api/company/{id}",
      *     summary="Update the company information",
+     *     tags={"Company"},
      *
      *     @OA\Parameter(
      *         description="ID of company to return",
@@ -220,6 +223,7 @@ class CompanyController extends Controller
      * @OA\Delete(
      *     path="/api/company/{id}",
      *     summary="Delete the company information",
+     *     tags={"Company"},
      *
      *     @OA\Parameter(
      *         description="ID of company to return",

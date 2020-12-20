@@ -8,10 +8,46 @@ use Illuminate\Support\Facades\Validator;
 
 class UserController extends Controller
 {
+
+
+    /**
+     * @OA\Get(
+     *     path="/api/user",
+     *     summary="Get current user basic info",
+     *     description="Use with bearer token",
+     *     tags={"User"},
+     *     @OA\RequestBody(
+     *         @OA\MediaType(
+     *             mediaType="application/json",
+     *             @OA\Schema(
+     *             )
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=200,
+     *         description="User details returned"
+     *     ),
+     *     @OA\Response(
+     *         response=422,
+     *         description="Unprocessable Entity"
+     *     )
+     * )
+     */
+
+    protected function show() {
+        $user = auth()->user();
+
+        $user->companyRoles = $user->companyRoles();
+
+        return $user;
+    }
+
+
     /**
      * @OA\Patch(
      *     path="/api/user/profile",
      *     summary="Update user profile",
+     *     tags={"User"},
      *
      *     @OA\RequestBody(
      *         @OA\MediaType(

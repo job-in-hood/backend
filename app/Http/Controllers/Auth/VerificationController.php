@@ -66,6 +66,7 @@ class VerificationController extends Controller
      *     path="/api/email/verify/{id}/{hash}",
      *     summary="Verify user email address",
      *     description="",
+     *     tags={"Authentication"},
      *     @OA\RequestBody(
      *         @OA\MediaType(
      *             mediaType="application/json",

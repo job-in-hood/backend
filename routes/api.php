@@ -45,7 +45,7 @@ Route::prefix('lookup')->group(function () {
 Route::middleware('auth:sanctum')->group(function () {
     //Authenticated
     Route::prefix('user')->group(function () {
-        Route::get('/', [LoginController::class, 'apiGetCurrentUser'])->name('api.auth.user');
+        Route::get('/', [UserController::class, 'show'])->name('api.auth.user');
         Route::post('logout', [LoginController::class, 'apiLogout'])->name('api.auth.logout');
         Route::patch('profile', [UserController::class, 'update'])->name('api.user.update');
     });

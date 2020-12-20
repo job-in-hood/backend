@@ -16,6 +16,7 @@ class JobController extends Controller
      * @OA\Post(
      *     path="/api/job",
      *     summary="Create a new job",
+     *     tags={"Job"},
      *     @OA\RequestBody(
      *         @OA\MediaType(
      *             mediaType="application/json",
@@ -114,6 +115,7 @@ class JobController extends Controller
      * @OA\Get(
      *     path="/api/job/{id}",
      *     summary="Show job by slug",
+     *     tags={"Job"},
      *     @OA\Parameter(
      *         description="Slug of job title",
      *         in="path",
@@ -158,6 +160,7 @@ class JobController extends Controller
      * @OA\Get(
      *     path="/api/job/{id}/edit",
      *     summary="Get information of job to editing by slug",
+     *     tags={"Job"},
      *     @OA\Parameter(
      *         description="ID of job",
      *         in="path",
@@ -194,6 +197,7 @@ class JobController extends Controller
      * @OA\Patch(
      *     path="/api/job/{id}",
      *     summary="Update the job",
+     *     tags={"Job"},
      *     @OA\RequestBody(
      *         @OA\MediaType(
      *             mediaType="application/json",
@@ -279,7 +283,7 @@ class JobController extends Controller
      * @OA\Delete(
      *     path="/api/job/{id}",
      *     summary="Delete the job",
-     *
+     *     tags={"Job"},
      *     @OA\Parameter(
      *         description="ID of the job",
      *         in="path",

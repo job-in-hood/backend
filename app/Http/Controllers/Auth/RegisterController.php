@@ -31,6 +31,7 @@ class RegisterController extends Controller
      * @OA\Post(
      *     path="/api/user/register",
      *     summary="Adds a new user",
+     *     tags={"Authentication"},
      *     @OA\RequestBody(
      *         @OA\MediaType(
      *             mediaType="application/json",

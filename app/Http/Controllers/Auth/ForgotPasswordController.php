@@ -31,6 +31,7 @@ class ForgotPasswordController extends Controller
      * @OA\Post(
      *     path="/api/forgot-password",
      *     summary="Sends password reset link to the user",
+     *     tags={"Authentication"},
      *     @OA\RequestBody(
      *         @OA\MediaType(
      *             mediaType="application/json",
@@ -74,6 +75,7 @@ class ForgotPasswordController extends Controller
      * @OA\Post(
      *     path="/api/reset-password",
      *     summary="Resets the user's password",
+     *     tags={"Authentication"},
      *     @OA\RequestBody(
      *         @OA\MediaType(
      *             mediaType="application/json",
