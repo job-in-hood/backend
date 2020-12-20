@@ -22,7 +22,7 @@ class AuthServiceProvider extends ServiceProvider
      * @var array
      */
     protected $policies = [
-         Company::class => CompanyPolicy::class
+         Company::class => CompanyPolicy::class,
     ];
 
     /**

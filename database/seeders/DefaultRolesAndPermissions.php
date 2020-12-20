@@ -15,11 +15,15 @@ class DefaultRolesAndPermissions extends Seeder
      */
     public function run()
     {
+        // Company Roles
         $role = Role::firstOrCreate([
             'name' => 'Company Administrator'
         ]);
 
-        $companyPermissions = ['company-update', 'company-delete'];
+        $companyPermissions = [
+            'company-update', 'company-delete',
+            'job-create', 'job-edit', 'job-delete', 'job-publish'
+        ];
 
         foreach ($companyPermissions as $companyPermission) {
             $permission = Permission::firstOrCreate([

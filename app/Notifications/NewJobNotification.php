@@ -2,28 +2,27 @@
 
 namespace App\Notifications;
 
-use App\Models\Company;
+use App\Models\Job;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Messages\SlackMessage;
 use Illuminate\Notifications\Notification;
-use Illuminate\Support\Facades\Auth;
 
-class NewCompanyNotification extends Notification
+class NewJobNotification extends Notification
 {
     use Queueable;
 
-    private Company $company;
+    private Job $job;
 
     /**
      * Create a new notification instance.
      *
-     * @param Company $company
+     * @param Job $job
      */
-    public function __construct(Company $company)
+    public function __construct(Job $job)
     {
-        $this->company = $company;
+        $this->job = $job;
     }
 
     /**
@@ -46,6 +45,20 @@ class NewCompanyNotification extends Notification
     public function toSlack($notifiable)
     {
         return (new SlackMessage)
-            ->content('New company (' . $this->company->name . ') was just created by ' . Auth()->user()->name . '!');
+            ->content('New job (' . $this->job->title . ') was just created by ' . Auth()->user()->name . '!');
+
+    }
+
+    /**
+     * Get the array representation of the notification.
+     *
+     * @param  mixed  $notifiable
+     * @return array
+     */
+    public function toArray($notifiable)
+    {
+        return [
+            //
+        ];
     }
 }

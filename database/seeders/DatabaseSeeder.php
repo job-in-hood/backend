@@ -18,6 +18,9 @@ class DatabaseSeeder extends Seeder
 
         $this->call(LocationTypeSeeder::class);
         $this->call(LocationSeeder::class);
+        $this->call(JobTypeSeeder::class);
+        $this->call(SalaryTypeSeeder::class);
+        $this->call(CurrencySeeder::class);
 
 
     }

@@ -12,18 +12,7 @@ use Illuminate\Support\Facades\Validator;
 class CompanyController extends Controller
 {
     /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        //
-    }
-
-
-    /**
-     * @OA\Put(
+     * @OA\Post(
      *     path="/api/company",
      *     summary="Create a new company",
      *     @OA\RequestBody(

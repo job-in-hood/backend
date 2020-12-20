@@ -8,7 +8,7 @@ use Illuminate\Support\Str;
 
 class LocationLookupController extends Controller
 {
-    public function __invoke(Request $request)
+    public function index(Request $request)
     {
         $inputs = $request->json()->all();
 
