@@ -11,53 +11,53 @@ class UserRegisterTest extends TestCase
 {
     use RefreshDatabase;
 
-    public function test_RegisterNewUser_ReceivedGetRequest_ShouldReturnErrorCode() {
+    public function test_RegisterNewUser_ReceivedGetRequest_ShouldReturnErrorCode()
+    {
         // GET Requests not allowed. Response must be 405
         $response = $this->get(route('api.auth.register'));
         $response->assertStatus(405);
     }
 
-    public function test_RegisterNewUser_DuplicateEmail_ShouldReturnError() {
+    public function test_RegisterNewUser_DuplicateEmail_ShouldReturnError()
+    {
         //$this->withoutExceptionHandling();
-        $user = factory(User::class)->create();
-        $password = Str::random();
+        $user = User::factory()->create();
 
-        $response = $this->postJson(route('api.auth.register'),[
+        $response = $this->postJson(route('api.auth.register'), [
             "email" => $user->email,
             "name" => $user->name,
-            "password" => $password,
-            "password_confirmation" => $password
+            "password" => $user->password,
+            "password_confirmation" => $user->password
         ]);
 
-        $response->assertStatus(422);
-        $response->assertSee('email');
+        $response
+            ->assertStatus(422)
+            ->assertSee('email');
     }
 
-    public function test_RegisterNewUser_ParametersCorrect_ShouldReturnUserInformation() {
-        //$this->withoutExceptionHandling();
+    public function test_RegisterNewUser_ParametersCorrect_ShouldReturnUserInformation()
+    {
+        $this->withoutExceptionHandling();
 
-        $user = factory(User::class)->make();
-        $password = Str::random();
+        $user = User::factory()->make();
 
-        $response = $this->postJson(route('api.auth.register'),[
+        $response = $this->postJson(route('api.auth.register'), [
             "email" => $user->email,
             "name" => $user->name,
-            "password" => $password,
-            "password_confirmation" => $password
+            "password" => $user->password,
+            "password_confirmation" => $user->password
         ]);
 
-        // Return 201
-        $response->assertCreated();
+        $response
+            ->assertCreated()
+            ->assertJsonFragment([
+                "email" => $user->email,
+                "name" => $user->name
+            ]);
 
-        // Check database
         $this->assertDatabaseHas('users', [
             'email' => $user->email,
         ]);
 
-        // Check response
-        $response->assertJsonFragment([
-            "email" => $user->email,
-            "name" => $user->name
-        ]);
     }
 }

@@ -39,7 +39,7 @@ Route::get('/', function () {
 //Route::get('reset-password', function () {
 //})->middleware(['guest'])->name('password.reset');
 //
-//Route::get('email/verify/{id}/{hash}', function() {
-//    return null;
-//})->name('verification.verify');
+Route::get('email/verify/{id}/{hash}', function() {
+    return null;
+})->name('verification.verify');
 
