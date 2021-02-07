@@ -5,6 +5,7 @@ use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Auth\VerificationController;
 use App\Http\Controllers\CompanyController;
+use App\Http\Controllers\CvController;
 use App\Http\Controllers\JobController;
 use App\Http\Controllers\LocationLookupController;
 use App\Http\Controllers\UserController;
@@ -59,4 +60,7 @@ Route::middleware('auth:sanctum')->group(function () {
 
     // Job
     Route::resource('job', JobController::class)->except(['index', 'show']);
+
+    // Cv
+    Route::resource('cv',CvController::class)->only(['index', 'store', 'destroy']);
 });

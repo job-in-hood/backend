@@ -75,6 +75,11 @@ class User extends Authenticatable implements MustVerifyEmail, CanResetPassword
             });
     }
 
+    public function cvs(): \Illuminate\Database\Eloquent\Relations\HasMany
+    {
+        return $this->hasMany(Cv::class);
+    }
+
     /**
      * Send the password reset notification.
      *
