@@ -6,8 +6,88 @@
         "version": ""
     },
     "paths": {
+        "/api/forgot-password": {
+            "post": {
+                "tags": [
+                    "Authentication"
+                ],
+                "summary": "Sends password reset link to the user",
+                "operationId": "App\\Http\\Controllers\\Auth\\ForgotPasswordController::resetPassword",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "email": {
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Reset Link Sent"
+                    },
+                    "422": {
+                        "description": "Unprocessable Request"
+                    }
+                }
+            }
+        },
+        "/api/reset-password": {
+            "post": {
+                "tags": [
+                    "Authentication"
+                ],
+                "summary": "Resets the user's password",
+                "operationId": "App\\Http\\Controllers\\Auth\\ForgotPasswordController::updatePassword",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "email": {
+                                        "type": "string"
+                                    },
+                                    "password": {
+                                        "type": "string"
+                                    },
+                                    "password_confirmation": {
+                                        "type": "string"
+                                    },
+                                    "token": {
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object",
+                                "example": {
+                                    "email": "john@doe.com",
+                                    "password": "Password",
+                                    "password_confirmation": "Password",
+                                    "token": "ABCDE12345"
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Token Issued"
+                    },
+                    "422": {
+                        "description": "Unprocessable Entity"
+                    }
+                }
+            }
+        },
         "/api/user/login": {
             "post": {
+                "tags": [
+                    "Authentication"
+                ],
                 "summary": "Login the user",
                 "operationId": "App\\Http\\Controllers\\Auth\\LoginController::apiLogin",
                 "requestBody": {
@@ -47,6 +127,9 @@
         },
         "/api/user/logout": {
             "post": {
+                "tags": [
+                    "Authentication"
+                ],
                 "summary": "Logout the user",
                 "description": "Use with bearer token",
                 "operationId": "App\\Http\\Controllers\\Auth\\LoginController::apiLogout",
@@ -77,30 +160,11 @@
                 }
             }
         },
-        "/api/user": {
-            "get": {
-                "summary": "Get current user basic info",
-                "description": "Use with bearer token",
-                "operationId": "App\\Http\\Controllers\\Auth\\LoginController::apiGetCurrentUser",
-                "requestBody": {
-                    "content": {
-                        "application/json": {
-                            "schema": {}
-                        }
-                    }
-                },
-                "responses": {
-                    "200": {
-                        "description": "User details returned"
-                    },
-                    "422": {
-                        "description": "Unprocessable Entity"
-                    }
-                }
-            }
-        },
         "/api/user/register": {
             "post": {
+                "tags": [
+                    "Authentication"
+                ],
                 "summary": "Adds a new user",
                 "operationId": "App\\Http\\Controllers\\Auth\\RegisterController::register",
                 "requestBody": {
@@ -138,8 +202,36 @@
                 }
             }
         },
+        "/api/email/verify/{id}/{hash}": {
+            "get": {
+                "tags": [
+                    "Authentication"
+                ],
+                "summary": "Verify user email address",
+                "description": "",
+                "operationId": "App\\Http\\Controllers\\Auth\\VerificationController::apiEmailVerification",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {}
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "User details returned"
+                    },
+                    "403": {
+                        "description": "Unauthorized"
+                    }
+                }
+            }
+        },
         "/api/company": {
-            "put": {
+            "post": {
+                "tags": [
+                    "Company"
+                ],
                 "summary": "Create a new company",
                 "operationId": "App\\Http\\Controllers\\CompanyController::store",
                 "requestBody": {
@@ -190,13 +282,16 @@
                 ]
             }
         },
-        "/api/company/{companyId}": {
+        "/api/company/{id}": {
             "get": {
+                "tags": [
+                    "Company"
+                ],
                 "summary": "Show company details by ID",
                 "operationId": "App\\Http\\Controllers\\CompanyController::show",
                 "parameters": [
                     {
-                        "name": "companyId",
+                        "name": "id",
                         "in": "path",
                         "description": "ID of company to return",
                         "required": true,
@@ -222,6 +317,537 @@
                         "description": "Unprocessable Entity"
                     }
                 }
+            },
+            "delete": {
+                "tags": [
+                    "Company"
+                ],
+                "summary": "Delete the company information",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of company to return",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int64"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Updated"
+                    },
+                    "403": {
+                        "description": "Unauthorized"
+                    },
+                    "404": {
+                        "description": "Invalid ID"
+                    }
+                },
+                "security": [
+                    {
+                        "api_key": []
+                    }
+                ]
+            },
+            "patch": {
+                "tags": [
+                    "Company"
+                ],
+                "summary": "Update the company information",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of company to return",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int64"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "name": {
+                                        "type": "string"
+                                    },
+                                    "description": {
+                                        "type": "string"
+                                    },
+                                    "website": {
+                                        "type": "string"
+                                    },
+                                    "email": {
+                                        "type": "string"
+                                    },
+                                    "industry_id": {
+                                        "type": "integer"
+                                    }
+                                },
+                                "type": "object",
+                                "example": {
+                                    "name": "Jobinhood",
+                                    "description": "Very good company",
+                                    "website": "www.jobinhood.co.uk",
+                                    "email": "test@jobinhood.co.uk",
+                                    "industry_id": 1
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Updated"
+                    },
+                    "403": {
+                        "description": "Unauthorized"
+                    },
+                    "404": {
+                        "description": "Invalid ID"
+                    },
+                    "422": {
+                        "description": "Unprocessable Entity"
+                    }
+                },
+                "security": [
+                    {
+                        "api_key": []
+                    }
+                ]
+            }
+        },
+        "/api/cv": {
+            "get": {
+                "tags": [
+                    "CV"
+                ],
+                "summary": "Get the CV list of the current user",
+                "description": "Use with bearer token",
+                "operationId": "App\\Http\\Controllers\\CvController::index",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {}
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "User CV list returned"
+                    },
+                    "422": {
+                        "description": "Unprocessable Entity"
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "CV"
+                ],
+                "summary": "Upload a new CV file",
+                "operationId": "App\\Http\\Controllers\\CvController::store",
+                "requestBody": {
+                    "content": {
+                        "multipart/form-data": {
+                            "schema": {
+                                "properties": {
+                                    "cv": {
+                                        "type": "file"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Created"
+                    },
+                    "422": {
+                        "description": "Unprocessable Entity"
+                    }
+                },
+                "security": [
+                    {
+                        "api_key": []
+                    }
+                ]
+            }
+        },
+        "/api/company/{uuid}": {
+            "delete": {
+                "tags": [
+                    "CV"
+                ],
+                "summary": "Delete the CV file",
+                "parameters": [
+                    {
+                        "name": "uuid",
+                        "in": "path",
+                        "description": "UUID of CV",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "format": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Deleted"
+                    },
+                    "403": {
+                        "description": "Unauthorized"
+                    },
+                    "404": {
+                        "description": "Invalid ID"
+                    }
+                },
+                "security": [
+                    {
+                        "api_key": []
+                    }
+                ]
+            }
+        },
+        "/api/job": {
+            "post": {
+                "tags": [
+                    "Job"
+                ],
+                "summary": "Create a new job",
+                "operationId": "App\\Http\\Controllers\\JobController::store",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "title": {
+                                        "type": "string"
+                                    },
+                                    "description": {
+                                        "type": "string"
+                                    },
+                                    "company_id": {
+                                        "type": "integer"
+                                    },
+                                    "job_type_id": {
+                                        "type": "integer"
+                                    },
+                                    "industry_id": {
+                                        "type": "integer"
+                                    },
+                                    "location_id": {
+                                        "type": "integer"
+                                    },
+                                    "publish_start": {
+                                        "type": "date"
+                                    },
+                                    "publish_end": {
+                                        "type": "date"
+                                    },
+                                    "salary_type_id": {
+                                        "type": "integer"
+                                    },
+                                    "salary_min": {
+                                        "type": "float"
+                                    },
+                                    "salary_max": {
+                                        "type": "float"
+                                    },
+                                    "currency_id": {
+                                        "type": "integer"
+                                    }
+                                },
+                                "type": "object",
+                                "example": {
+                                    "title": "Senior PHP Developer",
+                                    "location_id": 3,
+                                    "job_type_id": 1,
+                                    "company_id": 11,
+                                    "industry_id": 1,
+                                    "publish_start": "2020-05-31",
+                                    "publish_end": "2020-06-30",
+                                    "salary_type_id": 1,
+                                    "salary_min": 50,
+                                    "salary_max": 60,
+                                    "currency_id": 1,
+                                    "description": "Long Description"
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Created"
+                    },
+                    "422": {
+                        "description": "Unprocessable Entity"
+                    }
+                },
+                "security": [
+                    {
+                        "api_key": []
+                    }
+                ]
+            }
+        },
+        "/api/job/{id}": {
+            "get": {
+                "tags": [
+                    "Job"
+                ],
+                "summary": "Show job by slug",
+                "operationId": "App\\Http\\Controllers\\JobController::show",
+                "parameters": [
+                    {
+                        "name": "slug",
+                        "in": "path",
+                        "description": "Slug of job title",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {}
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful"
+                    },
+                    "404": {
+                        "description": "Item not found"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Job"
+                ],
+                "summary": "Delete the job",
+                "operationId": "App\\Http\\Controllers\\JobController::destroy",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of the job",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int64"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Deleted"
+                    },
+                    "403": {
+                        "description": "Unauthorized"
+                    },
+                    "404": {
+                        "description": "Invalid ID"
+                    }
+                },
+                "security": [
+                    {
+                        "api_key": []
+                    }
+                ]
+            },
+            "patch": {
+                "tags": [
+                    "Job"
+                ],
+                "summary": "Update the job",
+                "operationId": "App\\Http\\Controllers\\JobController::update",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "title": {
+                                        "type": "string"
+                                    },
+                                    "description": {
+                                        "type": "string"
+                                    },
+                                    "job_type_id": {
+                                        "type": "integer"
+                                    },
+                                    "industry_id": {
+                                        "type": "integer"
+                                    },
+                                    "location_id": {
+                                        "type": "integer"
+                                    },
+                                    "publish_start": {
+                                        "type": "date"
+                                    },
+                                    "publish_end": {
+                                        "type": "date"
+                                    },
+                                    "salary_type_id": {
+                                        "type": "integer"
+                                    },
+                                    "salary_min": {
+                                        "type": "float"
+                                    },
+                                    "salary_max": {
+                                        "type": "float"
+                                    },
+                                    "currency_id": {
+                                        "type": "integer"
+                                    }
+                                },
+                                "type": "object",
+                                "example": {
+                                    "title": "Senior PHP Developer",
+                                    "location_id": 3,
+                                    "job_type_id": 1,
+                                    "company_id": 11,
+                                    "industry_id": 1,
+                                    "publish_start": "2020-05-31",
+                                    "publish_end": "2020-06-30",
+                                    "salary_type_id": 1,
+                                    "salary_min": 50,
+                                    "salary_max": 60,
+                                    "currency_id": 1,
+                                    "description": "Long Description"
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Created"
+                    },
+                    "422": {
+                        "description": "Unprocessable Entity"
+                    }
+                },
+                "security": [
+                    {
+                        "api_key": []
+                    }
+                ]
+            }
+        },
+        "/api/job/{id}/edit": {
+            "get": {
+                "tags": [
+                    "Job"
+                ],
+                "summary": "Get information of job to editing by slug",
+                "operationId": "App\\Http\\Controllers\\JobController::edit",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of job",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {}
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful"
+                    },
+                    "404": {
+                        "description": "Item not found"
+                    }
+                }
+            }
+        },
+        "/api/user": {
+            "get": {
+                "tags": [
+                    "User"
+                ],
+                "summary": "Get current user basic info",
+                "description": "Use with bearer token",
+                "operationId": "App\\Http\\Controllers\\UserController::show",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {}
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "User details returned"
+                    },
+                    "422": {
+                        "description": "Unprocessable Entity"
+                    }
+                }
+            }
+        },
+        "/api/user/profile": {
+            "patch": {
+                "tags": [
+                    "User"
+                ],
+                "summary": "Update user profile",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "name": {
+                                        "type": "string"
+                                    },
+                                    "password": {
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object",
+                                "example": {
+                                    "name": "John Doe",
+                                    "password": "123AbC456!"
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Updated"
+                    },
+                    "403": {
+                        "description": "Unauthorized"
+                    },
+                    "422": {
+                        "description": "Unprocessable Entity"
+                    }
+                },
+                "security": [
+                    {
+                        "api_key": []
+                    }
+                ]
             }
         }
     },

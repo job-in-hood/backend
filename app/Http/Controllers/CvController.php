@@ -10,15 +10,62 @@ use Illuminate\Support\Facades\Storage;
 class CvController extends Controller
 {
     /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
+     * @OA\Get(
+     *     path="/api/cv",
+     *     summary="Get the CV list of the current user",
+     *     description="Use with bearer token",
+     *     tags={"CV"},
+     *     @OA\RequestBody(
+     *         @OA\MediaType(
+     *             mediaType="application/json",
+     *             @OA\Schema(
+     *             )
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=200,
+     *         description="User CV list returned"
+     *     ),
+     *     @OA\Response(
+     *         response=422,
+     *         description="Unprocessable Entity"
+     *     )
+     * )
      */
     public function index()
     {
         return auth()->user()->cvs;
     }
 
+    /**
+     * @OA\Post(
+     *     path="/api/cv",
+     *     summary="Upload a new CV file",
+     *     tags={"CV"},
+     *     @OA\RequestBody(
+     *         @OA\MediaType(
+     *             mediaType="multipart/form-data",
+     *             @OA\Schema(
+     *                 @OA\Property(
+     *                     property="cv",
+     *                     type="file"
+     *                 ),
+     *             )
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=201,
+     *         description="Created"
+     *     ),
+     *     @OA\Response(
+     *         response=422,
+     *         description="Unprocessable Entity"
+     *     ),
+     *     security={
+     *       {"api_key": {}}
+     *     }
+     * )
+     */
     public function store(StoreCvRequest $request)
     {
         $file = $request->file('cv');
@@ -37,6 +84,41 @@ class CvController extends Controller
             return $ex->getMessage();
         }
     }
+
+    /**
+     * @OA\Delete(
+     *     path="/api/company/{uuid}",
+     *     summary="Delete the CV file",
+     *     tags={"CV"},
+     *
+     *     @OA\Parameter(
+     *         description="UUID of CV",
+     *         in="path",
+     *         name="uuid",
+     *         required=true,
+     *         @OA\Schema(
+     *           type="string",
+     *           format="string"
+     *         )
+     *     ),
+     *
+     *     @OA\Response(
+     *         response=200,
+     *         description="Deleted"
+     *     ),
+     *     @OA\Response(
+     *         response=403,
+     *         description="Unauthorized"
+     *     ),
+     *     @OA\Response(
+     *         response=404,
+     *         description="Invalid ID"
+     *     ),
+     *     security={
+     *       {"api_key": {}}
+     *     }
+     * )
+     */
 
     /**
      * Remove the specified resource from storage.
