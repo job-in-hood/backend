@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreCvRequest;
 use App\Models\Cv;
 use Illuminate\Http\Request;

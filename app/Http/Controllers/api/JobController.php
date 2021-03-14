@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Events\JobCreated;
 use App\Events\JobDeleted;
+use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreJobRequest;
 use App\Http\Requests\UpdateJobRequest;
 use App\Models\Job;

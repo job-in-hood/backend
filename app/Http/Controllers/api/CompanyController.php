@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Events\CompanyCreated;
 use App\Events\CompanyDeleted;
+use App\Http\Controllers\Controller;
 use App\Models\Company;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
