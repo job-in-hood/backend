@@ -11120,7 +11120,7 @@ footer.ft .scrollup {
     position: fixed;
     left: 0;
     top: 0;
-    background-color: #26ae61;
+    background-color: rgba(38, 174, 97, 0.9);
      -webkit-box-shadow: 0px 0px 30px rgba(0,0,0,0.1);
     -moz-box-shadow: 0px 0px 30px rgba(0,0,0,0.1);
     -ms-box-shadow: 0px 0px 30px rgba(0,0,0,0.1);
