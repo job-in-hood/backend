@@ -707,6 +707,7 @@ label::after {
     float: left;
     font-family: Open Sans;
     font-size: 15px;
+    line-height: 10px;
     color: #ffffff;
     position: relative;
     padding: 14px 20px;
@@ -3878,7 +3879,7 @@ header.style5 {
     float: left;
     width: 100%;
     position: relative;
-    padding: 20px 60px;
+    padding: 20px 30px 20px 10px;
 }
 header.style5 .account-btns {
     padding: 10px 0;
@@ -11101,25 +11102,25 @@ footer.ft .scrollup {
     top: 0;
 }
 .forsticky.sticky .menu-sec nav > ul > li > a {
-    color: #232323;
+    color: #ffffff;
     line-height: 10px;
 }
 .forsticky.sticky .account-btns > li a {
-    color: #222222;
+    /*color: #222222;*/
 }
 .forsticky.sticky .menu-sec {
-    margin-top: 23px;
-    margin-bottom: 17px;
+    /*margin-top: 23px;*/
+    /*margin-bottom: 17px;*/
 }
 .forsticky.sticky .post-job-btn:hover {
-    background: #fb236a;
+    background: #26ae61;
     color: #FFF;
 }
 .forsticky.sticky {
     position: fixed;
     left: 0;
     top: 0;
-    background: #ffffff;
+    background-color: #26ae61;
      -webkit-box-shadow: 0px 0px 30px rgba(0,0,0,0.1);
     -moz-box-shadow: 0px 0px 30px rgba(0,0,0,0.1);
     -ms-box-shadow: 0px 0px 30px rgba(0,0,0,0.1);

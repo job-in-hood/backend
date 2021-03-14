@@ -31,7 +31,7 @@
 
 <div class="theme-layout" id="scrollup">
 
-    <div class="responsive-header five">
+    <div class="responsive-header sticky-top forsticky five">
         <div class="responsive-menubar">
             <div class="res-logo"><a href="index.html" title=""><img src="{{ asset('images/logo-white.png') }}" alt="" /></a></div>
             <div class="menu-resaction">
@@ -57,19 +57,6 @@
             </form>
             <div class="responsivemenu">
                 <ul>
-                    <li class="menu-item-has-children">
-                        <a href="#" title="">Home</a>
-                        <ul>
-                            <li><a href="index.html" title="">Home Layout 1</a></li>
-                            <li><a href="index2.html" title="">Home Layout 2</a></li>
-                            <li><a href="index3.html" title="">Home Layout 3</a></li>
-                            <li><a href="index4.html" title="">Home Layout 4</a></li>
-                            <li><a href="index5.html" title="">Home Layout 5</a></li>
-                            <li><a href="index6.html" title="">Home Layout 6</a></li>
-                            <li><a href="index7.html" title="">Home Layout 7</a></li>
-                            <li><a href="index8.html" title="">Home Layout 8</a></li>
-                        </ul>
-                    </li>
                     <li class="menu-item-has-children">
                         <a href="#" title="">Employers</a>
                         <ul>
@@ -158,27 +145,27 @@
         </div>
     </div>
 
-    <header class="style5">
+    <header class="sticky-top forsticky style5">
         <div class="menu-sec">
             <div class="container fluid">
                 <nav>
                     <ul>
                         <li class="menu-item-has-children">
-                            <a href="#" title="">Home</a>
-                            <ul>
-                                <li><a href="index.html" title="">Home Layout 1</a></li>
-                                <li><a href="index2.html" title="">Home Layout 2</a></li>
-                                <li><a href="index3.html" title="">Home Layout 3</a></li>
-                                <li><a href="index4.html" title="">Home Layout 4</a></li>
-                                <li><a href="index5.html" title="">Home Layout 5</a></li>
-                                <li><a href="index6.html" title="">Home Layout 6</a></li>
-                                <li><a href="index7.html" title="">Home Layout 7</a></li>
-                                <li><a href="index8.html" title="">Home Layout 8</a></li>
-                            </ul>
-                        </li>
-                        <li class="menu-item-has-children">
                             <a href="#" title="">Employers</a>
                             <ul>
+                                <li class="menu-item-has-children">
+                                    <a href="#" title="">Home</a>
+                                    <ul>
+                                        <li><a href="index.html" title="">Home Layout 1</a></li>
+                                        <li><a href="index2.html" title="">Home Layout 2</a></li>
+                                        <li><a href="index3.html" title="">Home Layout 3</a></li>
+                                        <li><a href="index4.html" title="">Home Layout 4</a></li>
+                                        <li><a href="index5.html" title="">Home Layout 5</a></li>
+                                        <li><a href="index6.html" title="">Home Layout 6</a></li>
+                                        <li><a href="index7.html" title="">Home Layout 7</a></li>
+                                        <li><a href="index8.html" title="">Home Layout 8</a></li>
+                                    </ul>
+                                </li>
                                 <li><a href="employer_list1.html" title=""> Employer List 1</a></li>
                                 <li><a href="employer_list2.html" title="">Employer List 2</a></li>
                                 <li><a href="employer_list3.html" title="">Employer List 3</a></li>
