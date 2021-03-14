@@ -4,11 +4,11 @@ use App\Http\Controllers\Auth\ForgotPasswordController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Auth\VerificationController;
-use App\Http\Controllers\CompanyController;
-use App\Http\Controllers\CvController;
-use App\Http\Controllers\JobController;
-use App\Http\Controllers\LocationLookupController;
-use App\Http\Controllers\UserController;
+use App\Http\Controllers\Api\CompanyController;
+use App\Http\Controllers\Api\CvController;
+use App\Http\Controllers\Api\JobController;
+use App\Http\Controllers\Api\LocationLookupController;
+use App\Http\Controllers\Api\UserController;
 use Illuminate\Support\Facades\Route;
 
 /*
